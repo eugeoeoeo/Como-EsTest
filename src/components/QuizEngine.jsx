@@ -74,6 +74,9 @@ function QuestionCard({ q, idx, answered, userAnswer, onSelectOption, onSubmitFi
         window.activeRecognition.stop()
       }
       setIsListening(false)
+      if (fillVal.trim()) {
+        onSubmitFill(idx, fillVal)
+      }
       return
     }
 
@@ -81,9 +84,11 @@ function QuestionCard({ q, idx, answered, userAnswer, onSelectOption, onSubmitFi
       window.activeRecognition.stop()
     }
 
+    setFillVal('')
+
     const recognition = new SpeechRecognition()
-    recognition.continuous = false
-    recognition.interimResults = false
+    recognition.continuous = true
+    recognition.interimResults = true
     recognition.lang = detectSpeechLanguage(q)
 
     recognition.onstart = () => {
@@ -91,15 +96,15 @@ function QuestionCard({ q, idx, answered, userAnswer, onSelectOption, onSubmitFi
     }
 
     recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript
-      if (transcript) {
-        let normalizedTranscript = transcript.trim()
-        if (normalizedTranscript.endsWith('.')) {
-          normalizedTranscript = normalizedTranscript.slice(0, -1).trim()
-        }
-        setFillVal(normalizedTranscript)
-        onSubmitFill(idx, normalizedTranscript)
+      let fullTranscript = ''
+      for (let i = 0; i < event.results.length; i++) {
+        fullTranscript += event.results[i][0].transcript
       }
+      let cleanVal = fullTranscript.trim()
+      if (cleanVal.endsWith('.')) {
+        cleanVal = cleanVal.slice(0, -1).trim()
+      }
+      setFillVal(cleanVal)
     }
 
     recognition.onerror = (event) => {

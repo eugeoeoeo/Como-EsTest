@@ -11,6 +11,7 @@ const chapters = [
   { id: 5, icon: '🔢', label: 'Ch 5: Números' },
   { id: 6, icon: '🎨', label: 'Ch 6: Colores' },
   { id: 7, icon: '🦴', label: 'Ch 7: Cuerpo' },
+  { id: 8, icon: '📋', label: 'Ch 8: Competence' },
 ]
 
 export default function Layout({ children }) {
