@@ -4,8 +4,101 @@ import { setScore, setExamScore, getScore, getExamScore } from '../utils/progres
 
 const typeLabels = { mc: 'Multiple Choice', tf: 'True / False', fill: 'Fill in the Blank', translate: 'Translation', error: 'Error Correction' }
 
+function stripAccents(s) {
+  return s
+    .replace(/[áäàâ]/g, 'a')
+    .replace(/[éëèê]/g, 'e')
+    .replace(/[íïìî]/g, 'i')
+    .replace(/[óöòô]/g, 'o')
+    .replace(/[úüùû]/g, 'u')
+}
+
+function spanishNumberToWords(num) {
+  if (num === 0) return 'cero'
+  
+  const units = ['', 'un', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve']
+  const tens = ['', 'diez', 'veinte', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa']
+  const teens = ['diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve']
+  const cents = ['', 'cien', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos', 'seiscientos', 'setecientos', 'ochocientos', 'novecientos']
+
+  if (num === 100) return 'cien'
+
+  let words = []
+
+  if (num >= 1000000) {
+    const millions = Math.floor(num / 1000000)
+    num %= 1000000
+    if (millions === 1) {
+      words.push('un millón')
+    } else {
+      words.push(spanishNumberToWords(millions) + ' millones')
+    }
+  }
+
+  if (num >= 1000) {
+    const thousands = Math.floor(num / 1000)
+    num %= 1000
+    if (thousands === 1) {
+      words.push('mil')
+    } else {
+      words.push(spanishNumberToWords(thousands) + ' mil')
+    }
+  }
+
+  if (num >= 100) {
+    const hundreds = Math.floor(num / 100)
+    num %= 100
+    if (hundreds === 1 && num > 0) {
+      words.push('ciento')
+    } else {
+      words.push(cents[hundreds])
+    }
+  }
+
+  if (num >= 20) {
+    const tenVal = Math.floor(num / 10)
+    const unitVal = num % 10
+    if (tenVal === 2) {
+      if (unitVal === 0) {
+        words.push('veinte')
+      } else {
+        const veintiMap = { 1: 'veintiuno', 2: 'veintidós', 3: 'veintitrés', 4: 'veinticuatro', 5: 'veinticinco', 6: 'veintiséis', 7: 'veintisieste', 8: 'veintiocho', 9: 'veintinueve' }
+        words.push(veintiMap[unitVal] || 'veinte y ' + units[unitVal])
+      }
+    } else {
+      if (unitVal === 0) {
+        words.push(tens[tenVal])
+      } else {
+        words.push(tens[tenVal] + ' y ' + (unitVal === 1 ? 'uno' : units[unitVal]))
+      }
+    }
+  } else if (num >= 10) {
+    words.push(teens[num - 10])
+  } else if (num > 0) {
+    words.push(num === 1 ? 'uno' : units[num])
+  }
+
+  return words.filter(Boolean).join(' ')
+}
+
+function replaceDigitsWithSpanishWords(text) {
+  return text.replace(/\b\d+\b/g, (match) => {
+    const num = parseInt(match, 10)
+    if (!isNaN(num)) {
+      return spanishNumberToWords(num)
+    }
+    return match
+  })
+}
+
 function normalize(s) {
-  return s.toLowerCase().replace(/[.,!?¿¡;:'"()—\-]/g, '').replace(/\s+/g, ' ').trim()
+  let clean = String(s || '').toLowerCase()
+  clean = replaceDigitsWithSpanishWords(clean)
+  clean = stripAccents(clean)
+  return clean
+    .replace(/[.,!?¿¡;:'"()—\-]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 function checkAnswer(q, answer) {

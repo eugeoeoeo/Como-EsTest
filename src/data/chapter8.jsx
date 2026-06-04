@@ -337,21 +337,126 @@ const activities = [
 ]
 
 const communicate = [
-  { type: 'translate', question: 'Say in Spanish: "We are the first group."', answer: ['Somos el primer grupo'], explanation: 'primer agrees with grupo (masculine singular).' },
-  { type: 'translate', question: 'Say in Spanish: "The item costs forty-eight pesos."', answer: ['El artículo cuesta cuarenta y ocho pesos', 'El articulo cuesta cuarenta y ocho pesos'], explanation: 'cuarenta y ocho' },
-  { type: 'translate', question: 'Say in Spanish: "She has thirty-seven books."', answer: ['Ella tiene treinta y siete libros'], explanation: 'treinta y siete' },
-  { type: 'translate', question: 'Say in Spanish: "Today is the first of January."', answer: ['Hoy es el primero de enero'], explanation: 'primero de enero' },
-  { type: 'translate', question: 'Say in Spanish: "It is three twenty-five."', answer: ['Son las tres y veinticinco', 'Son las tres veinticinco'], explanation: 'las tres y veinticinco' },
-  { type: 'translate', question: 'Say in Spanish: "One million people."', answer: ['Un millón de personas', 'Un millon de personas'], explanation: 'un millón de + noun' },
-  { type: 'translate', question: 'Say in Spanish: "The table costs fifteen fifty."', answer: ['La mesa cuesta quince con cincuenta'], explanation: 'quince con cincuenta' },
-  { type: 'translate', question: 'Say in Spanish: "He is twenty-two years old."', answer: ['Él tiene veintidós años', 'El tiene veintidos anos', 'Tiene veintidós años'], explanation: 'veintidós años' },
-  { type: 'translate', question: 'Say in Spanish: "The first book is red."', answer: ['El primer libro es rojo'], explanation: 'primer drops the o' },
-  { type: 'translate', question: 'Say in Spanish: "The third house is blue."', answer: ['La tercera casa es azul'], explanation: 'tercera agrees with casa' },
-  { type: 'translate', question: 'Say in Spanish: "Cien personas llegaron."', answer: ['Cien personas llegaron'], explanation: 'cien before plural nouns' },
-  { type: 'translate', question: 'Say in Spanish: "Ten minus two is eight."', answer: ['Diez menos dos son ocho', 'Diez menos dos es igual a ocho'], explanation: 'diez menos dos son ocho' },
-  { type: 'translate', question: 'Say in Spanish: "The twentieth anniversary."', answer: ['El vigésimo aniversario', 'El vigesimo aniversario'], explanation: 'vigésimo' },
-  { type: 'translate', question: 'Say in Spanish: "We have twenty-four hours."', answer: ['Tenemos veinticuatro horas'], explanation: 'veinticuatro' },
-  { type: 'translate', question: 'Say in Spanish: "I have five hundred pesos."', answer: ['Tengo quinientos pesos'], explanation: 'quinientos pesos' }
+  {
+    type: 'translate',
+    question: 'Translate the cardinal number <strong>48</strong> into Spanish words.',
+    answer: ['cuarenta y ocho'],
+    explanation: '48 is cuarenta (40) + y + ocho (8).'
+  },
+  {
+    type: 'translate',
+    question: 'Translate the cardinal number <strong>317</strong> into Spanish words.',
+    answer: ['trescientos diecisiete'],
+    explanation: '317 is trescientos (300) + diecisiete (17).'
+  },
+  {
+    type: 'translate',
+    question: 'Translate the cardinal number <strong>1,450</strong> into Spanish words.',
+    answer: ['mil cuatrocientos cincuenta'],
+    explanation: '1,450 is mil (1,000) + cuatrocientos (400) + cincuenta (50).'
+  },
+  {
+    type: 'translate',
+    question: 'Translate the cardinal number <strong>22,001</strong> into Spanish words.',
+    answer: ['veintidós mil uno', 'veintidos mil uno', 'veintidós mil un', 'veintidos mil un'],
+    explanation: '22,001 is veintidós mil (22,000) + uno (1).'
+  },
+  {
+    type: 'translate',
+    question: 'Translate the cardinal number <strong>999,999</strong> into Spanish words.',
+    answer: ['novecientos noventa y nueve mil novecientos noventa y nueve'],
+    explanation: '999,999 is novecientos noventa y nueve mil (999,000) + novecientos noventa y nueve (999).'
+  },
+  {
+    type: 'translate',
+    question: 'Translate the ordinal expression <strong>"the third student"</strong> into Spanish words.',
+    answer: ['el tercer estudiante', 'la tercera estudiante'],
+    explanation: 'tercero/tercera agrees with student.'
+  },
+  {
+    type: 'translate',
+    question: 'Translate the ordinal expression <strong>"the twenty-second person"</strong> into Spanish words.',
+    answer: ['la vigésima segunda persona', 'la vigesima segunda persona'],
+    explanation: 'la vigésima segunda persona'
+  },
+  {
+    type: 'translate',
+    question: 'Translate the ordinal expression <strong>"the first book"</strong> into Spanish words.',
+    answer: ['el primer libro'],
+    explanation: 'el primer libro'
+  },
+  {
+    type: 'translate',
+    question: 'Translate the ordinal expression <strong>"the seventieth anniversary"</strong> into Spanish words.',
+    answer: ['el septuagésimo aniversario', 'el septuagesimo aniversario'],
+    explanation: 'el septuagésimo aniversario'
+  },
+  {
+    type: 'translate',
+    question: 'Translate the ordinal expression <strong>"the eleventh chapter"</strong> into Spanish words.',
+    answer: ['el undécimo capítulo', 'el undecimo capitulo', 'el decimoprimer capítulo', 'el decimoprimer capitulo'],
+    explanation: 'el undécimo capítulo'
+  },
+  {
+    type: 'translate',
+    question: 'Translate: <strong>"A customer bought an item worth $15.50."</strong> (Write the amount in Spanish words)',
+    answer: ['quince con cincuenta', 'quince dolares con cincuenta centavos', 'quince dólares con cincuenta centavos'],
+    explanation: 'quince con cincuenta'
+  },
+  {
+    type: 'translate',
+    question: 'Write the following date in Spanish words: <strong>January 1</strong>',
+    answer: ['el primero de enero', 'primero de enero'],
+    explanation: 'el primero de enero'
+  },
+  {
+    type: 'translate',
+    question: 'Express the time in Spanish words: <strong>3:25</strong>',
+    answer: ['las tres veinticinco', 'las tres y veinticinco'],
+    explanation: 'las tres veinticinco'
+  },
+  {
+    type: 'translate',
+    question: 'Translate to Spanish: <strong>“She is 37 years old.”</strong>',
+    answer: ['Ella tiene treinta y siete años', 'Ella tiene treinta y siete anos', 'Tiene treinta y siete años', 'tiene treinta y siete anos'],
+    explanation: 'Ella tiene treinta y siete años'
+  },
+  {
+    type: 'translate',
+    question: 'Translate the mathematical expression: <strong>10 − 2 = 8</strong>',
+    answer: ['diez menos dos son ocho', 'diez menos dos es igual a ocho'],
+    explanation: 'diez menos dos son ocho'
+  },
+  {
+    type: 'translate',
+    question: 'Write the number <strong>483,382</strong> completely in Spanish words.',
+    answer: ['cuatrocientos ochenta y tres mil trescientos ochenta y dos'],
+    explanation: 'cuatrocientos ochenta y tres mil trescientos ochenta y dos'
+  },
+  {
+    type: 'translate',
+    question: 'Write the number <strong>6,492,000</strong> completely in Spanish words.',
+    answer: ['seis millones cuatrocientos noventa y dos mil'],
+    explanation: 'seis millones cuatrocientos noventa y dos mil'
+  },
+  {
+    type: 'translate',
+    question: 'Write the number <strong>1,000,001</strong> completely in Spanish words.',
+    answer: ['un millón uno', 'un millon uno'],
+    explanation: 'un millón uno'
+  },
+  {
+    type: 'translate',
+    question: 'Write the number <strong>41,000</strong> completely in Spanish words.',
+    answer: ['cuarenta y un mil'],
+    explanation: 'cuarenta y un mil'
+  },
+  {
+    type: 'translate',
+    question: 'Write the number <strong>1,048,710</strong> completely in Spanish words.',
+    answer: ['un millón cuarenta y ocho mil setecientos diez', 'un millon cuarenta y ocho mil setecientos diez'],
+    explanation: 'un millón cuarenta y ocho mil setecientos diez'
+  }
 ]
 
 const quiz = [...activities]
