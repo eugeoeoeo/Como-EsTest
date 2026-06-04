@@ -115,7 +115,7 @@ export default function ChapterView() {
           {getScore('ch' + chNum, 'quiz').score !== null && (
             <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
               <button className="btn btn-ghost btn-sm" onClick={() => { setTab('communicate'); window.scrollTo(0, 0); }}>← Back to Communicate</button>
-              {chNum < 7 ? (
+              {chNum < 8 ? (
                 <button className="btn btn-primary btn-sm" onClick={() => { navigate(`/chapter/${chNum + 1}`); setTab('lesson'); window.scrollTo(0, 0); }}>Go to Chapter {chNum + 1} →</button>
               ) : (
                 <button className="btn btn-success btn-sm" onClick={() => { navigate('/exam'); window.scrollTo(0, 0); }}>Take the Final Exam! 🏆</button>

@@ -7,4 +7,6 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.warn('Supabase credentials not found in env. Falling back to local/guest storage mode.')
 }
 
+export const isSupabaseConfigured = !!(supabaseUrl && supabaseAnonKey)
+
 export const supabase = createClient(supabaseUrl || 'https://placeholder.supabase.co', supabaseAnonKey || 'placeholder')

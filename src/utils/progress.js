@@ -232,9 +232,9 @@ export const getChapterProgress = ch => {
 
 export const getOverallProgress = () => {
   let total = 0
-  for (let i = 1; i <= 7; i++) total += getChapterProgress('ch' + i)
+  for (let i = 1; i <= 8; i++) total += getChapterProgress('ch' + i)
   if (getExamScore()) total += 100
-  return Math.round(total / 8)
+  return Math.round(total / 9)
 }
 
 export const resetChapter = ch => {

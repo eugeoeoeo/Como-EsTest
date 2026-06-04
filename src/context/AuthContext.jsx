@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { supabase } from '../utils/supabaseClient'
+import { supabase, isSupabaseConfigured } from '../utils/supabaseClient'
 import { setCurrentUserId, fetchAndSyncProgress, syncGuestProgressToUser } from '../utils/progress'
 
 const AuthContext = createContext(null)
@@ -90,6 +90,9 @@ export function AuthProvider({ children }) {
   }, [])
 
   const login = async (email, password) => {
+    if (!isSupabaseConfigured) {
+      return "Database connection is not configured. Please add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your Vercel project environment variables."
+    }
     localStorage.removeItem(GUEST_KEY)
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) return error.message
@@ -97,6 +100,9 @@ export function AuthProvider({ children }) {
   }
 
   const signup = async (name, email, password) => {
+    if (!isSupabaseConfigured) {
+      return "Database connection is not configured. Please add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your Vercel project environment variables."
+    }
     localStorage.removeItem(GUEST_KEY)
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -110,6 +116,9 @@ export function AuthProvider({ children }) {
   }
 
   const forgotPassword = async (email) => {
+    if (!isSupabaseConfigured) {
+      return "Database connection is not configured. Please add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your Vercel project environment variables."
+    }
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: window.location.origin
     })
@@ -118,6 +127,9 @@ export function AuthProvider({ children }) {
   }
 
   const verifyResetOtp = async (email, token) => {
+    if (!isSupabaseConfigured) {
+      return "Database connection is not configured. Please add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your Vercel project environment variables."
+    }
     const { data, error } = await supabase.auth.verifyOtp({
       email,
       token,
@@ -128,6 +140,9 @@ export function AuthProvider({ children }) {
   }
 
   const updatePassword = async (newPassword) => {
+    if (!isSupabaseConfigured) {
+      return "Database connection is not configured. Please add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your Vercel project environment variables."
+    }
     const { data, error } = await supabase.auth.updateUser({
       password: newPassword
     })

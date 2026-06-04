@@ -10,6 +10,7 @@ const chapters = [
   { id: 5, icon: '🔢', title: 'Los Números en Español', desc: 'Numbers in Spanish — Cardinals, Ordinals, Usage' },
   { id: 6, icon: '🎨', title: 'Los Colores en Español', desc: 'Colors in Spanish — Vocabulary and Grammar' },
   { id: 7, icon: '🦴', title: 'El Cuerpo Humano', desc: 'The Human Body — Parts and Vocabulary' },
+  { id: 8, icon: '📋', title: 'Applied Language & Numerical Competence', desc: 'Numerical pattern analysis, conversions, error analysis, and dialogues' },
 ]
 
 export default function Dashboard() {
@@ -17,7 +18,7 @@ export default function Dashboard() {
   const toast = useToast()
   const overall = getOverallProgress()
   const exam = getExamScore()
-  const completedChapters = [1,2,3,4,5,6,7].filter(i => getChapterProgress('ch'+i) === 100).length
+  const completedChapters = [1,2,3,4,5,6,7,8].filter(i => getChapterProgress('ch'+i) === 100).length
 
   const handleReset = () => {
     if (confirm('Reset ALL progress? This cannot be undone.')) {
@@ -40,7 +41,7 @@ export default function Dashboard() {
           <div className="stat-label">Overall Progress</div>
         </div>
         <div className="stat-card">
-          <div className="stat-value" style={{ color: 'var(--gold)' }}>{completedChapters}/7</div>
+          <div className="stat-value" style={{ color: 'var(--gold)' }}>{completedChapters}/8</div>
           <div className="stat-label">Chapters Done</div>
         </div>
         <div className="stat-card">

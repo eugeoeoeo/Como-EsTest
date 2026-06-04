@@ -16,8 +16,43 @@ function checkAnswer(q, answer) {
   return accepted.some(a => normalize(String(answer)) === normalize(String(a)))
 }
 
+function detectSpeechLanguage(q) {
+  const ansText = String(Array.isArray(q.answer) ? q.answer[0] : q.answer).toLowerCase()
+  
+  const spanishKeywords = [
+    'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez',
+    'once', 'doce', 'trece', 'catorce', 'quince', 'dieci', 'veinti', 'treinta', 'cuarenta',
+    'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa', 'cien', 'ciento', 'mil', 'millón',
+    'el', 'la', 'los', 'las', 'un', 'una', 'y', 'de', 'en', 'es', 'son', 'tengo', 'me', 'mi',
+    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
+    'octubre', 'noviembre', 'diciembre', 'horas', 'hora', 'primer', 'primero', 'segundo',
+    'tercer', 'tercero', 'cuarto', 'quinto', 'sexto', 'séptimo', 'octavo', 'noveno', 'décimo',
+    'dolor', 'cabeza', 'estómago', 'brazo', 'pierna', 'pie', 'mano', 'ojo', 'oreja', 'boca',
+    'dientes', 'cuello', 'espalda', 'ropa', 'camisa', 'pantalones', 'zapatos', 'rojo', 'azul',
+    'verde', 'amarillo', 'negro', 'blanco', 'gris', 'marrón', 'rosa', 'naranja', 'morado'
+  ]
+  
+  const hasSpanish = spanishKeywords.some(w => new RegExp(`\\b${w}\\b`).test(ansText)) || 
+                     ansText.includes('ñ') || ansText.includes('í') || ansText.includes('á') || 
+                     ansText.includes('ó') || ansText.includes('ú') || ansText.includes('é') ||
+                     ansText.includes('ella') || ansText.includes('tiene') || ansText.includes('somos')
+                     
+  if (hasSpanish) return 'es-ES'
+  
+  const tagalogKeywords = ['konstitusyon', 'nobela', 'pilipinas', 'wika', 'maynila', 'akda']
+  const hasTagalog = tagalogKeywords.some(w => ansText.includes(w))
+  if (hasTagalog) return 'fil-PH'
+  
+  const englishKeywords = ['constitution', 'novel', 'history', 'year', 'hundred', 'thousand']
+  const hasEnglish = englishKeywords.some(w => ansText.includes(w))
+  if (hasEnglish) return 'en-US'
+  
+  return 'es-ES'
+}
+
 function QuestionCard({ q, idx, answered, userAnswer, onSelectOption, onSubmitFill }) {
   const [fillVal, setFillVal] = useState('')
+  const [isListening, setIsListening] = useState(false)
   const cardRef = useRef(null)
   const isCorrect = answered ? checkAnswer(q, userAnswer) : null
   const correctAns = q.type === 'mc' ? q.options[q.answer] : q.type === 'tf' ? (q.answer ? 'True' : 'False') : (Array.isArray(q.answer) ? q.answer[0] : q.answer)
@@ -27,6 +62,67 @@ function QuestionCard({ q, idx, answered, userAnswer, onSelectOption, onSubmitFi
       cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
     }
   }, [answered])
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+  const isSpeechSupported = !!SpeechRecognition
+
+  const handleVoiceInput = () => {
+    if (!isSpeechSupported) return
+
+    if (isListening) {
+      if (window.activeRecognition) {
+        window.activeRecognition.stop()
+      }
+      setIsListening(false)
+      return
+    }
+
+    if (window.activeRecognition) {
+      window.activeRecognition.stop()
+    }
+
+    const recognition = new SpeechRecognition()
+    recognition.continuous = false
+    recognition.interimResults = false
+    recognition.lang = detectSpeechLanguage(q)
+
+    recognition.onstart = () => {
+      setIsListening(true)
+    }
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript
+      if (transcript) {
+        let normalizedTranscript = transcript.trim()
+        if (normalizedTranscript.endsWith('.')) {
+          normalizedTranscript = normalizedTranscript.slice(0, -1).trim()
+        }
+        setFillVal(normalizedTranscript)
+        onSubmitFill(idx, normalizedTranscript)
+      }
+    }
+
+    recognition.onerror = (event) => {
+      console.error('Speech recognition error:', event.error)
+      setIsListening(false)
+    }
+
+    recognition.onend = () => {
+      setIsListening(false)
+      window.activeRecognition = null
+    }
+
+    window.activeRecognition = recognition
+    recognition.start()
+  }
+
+  useEffect(() => {
+    return () => {
+      if (isListening && window.activeRecognition) {
+        window.activeRecognition.stop()
+      }
+    }
+  }, [isListening])
 
   return (
     <div ref={cardRef} className={`question-card ${answered ? (isCorrect ? 'answered-correct' : 'answered-wrong') : ''}`}>
@@ -64,17 +160,55 @@ function QuestionCard({ q, idx, answered, userAnswer, onSelectOption, onSubmitFi
 
       {(q.type === 'fill' || q.type === 'translate' || q.type === 'error') && (
         <>
-          <input
-            type="text"
-            className={`fill-blank-input ${answered ? (isCorrect ? 'correct-input' : 'wrong-input') : ''}`}
-            placeholder={q.type === 'translate' ? 'Write the translation...' : q.type === 'error' ? 'Write the corrected sentence...' : 'Type your answer...'}
-            value={answered ? (userAnswer || '') : fillVal}
-            onChange={e => setFillVal(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && !answered && fillVal.trim() && onSubmitFill(idx, fillVal)}
-            disabled={answered}
-          />
+          <div className="input-group-speech" style={{ position: 'relative', display: 'flex', alignItems: 'center', width: '100%' }}>
+            <input
+              type="text"
+              className={`fill-blank-input ${answered ? (isCorrect ? 'correct-input' : 'wrong-input') : ''}`}
+              placeholder={q.type === 'translate' ? 'Write the translation...' : q.type === 'error' ? 'Write the corrected sentence...' : 'Type your answer...'}
+              value={answered ? (userAnswer || '') : fillVal}
+              onChange={e => setFillVal(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && !answered && fillVal.trim() && onSubmitFill(idx, fillVal)}
+              disabled={answered}
+              style={{
+                width: '100%',
+                paddingRight: isSpeechSupported && !answered ? '48px' : '16px'
+              }}
+            />
+            {isSpeechSupported && !answered && (
+              <button
+                type="button"
+                className={`btn-speech-mic ${isListening ? 'listening' : ''}`}
+                onClick={handleVoiceInput}
+                title={`Speak your answer in ${detectSpeechLanguage(q) === 'es-ES' ? 'Spanish' : detectSpeechLanguage(q) === 'fil-PH' ? 'Tagalog' : 'English'}`}
+                style={{
+                  position: 'absolute',
+                  right: '8px',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '1.25rem',
+                  padding: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: isListening ? 'var(--wrong)' : 'var(--text-sec)',
+                  transition: 'color 0.2s ease, transform 0.2s ease',
+                  zIndex: 5
+                }}
+              >
+                {isListening ? '🔴' : '🎙️'}
+              </button>
+            )}
+          </div>
           {!answered && (
-            <button className="btn btn-primary btn-sm" style={{ marginTop: 8 }} onClick={() => fillVal.trim() && onSubmitFill(idx, fillVal)}>Check Answer</button>
+            <div style={{ display: 'flex', gap: '8px', marginTop: 8, alignItems: 'center' }}>
+              <button className="btn btn-primary btn-sm" onClick={() => fillVal.trim() && onSubmitFill(idx, fillVal)}>Check Answer</button>
+              {isSpeechSupported && (
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-sec)' }}>
+                  {isListening ? 'Listening... speak clearly.' : 'or click the mic to speak your answer'}
+                </span>
+              )}
+            </div>
           )}
         </>
       )}

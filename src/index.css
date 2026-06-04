@@ -240,3 +240,22 @@ input,button,select,textarea{font-family:inherit;font-size:inherit}
   border-bottom: 2px solid var(--border);
 }
 
+@keyframes micPulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.btn-speech-mic.listening {
+  animation: micPulse 1.2s infinite ease-in-out;
+}
+
+.btn-speech-mic:hover {
+  transform: scale(1.1);
+  color: var(--primary) !important;
+}
+
+.btn-speech-mic.listening:hover {
+  color: var(--wrong) !important;
+}
+
