@@ -86,11 +86,30 @@ const quiz = [
   { type:'mc', question:'How many lines total are in the conversation?', options:['6','8','10','12'], answer:2, explanation:'The conversation has 10 lines (5 from A, 5 from B).' },
 ]
 
+const communicate = [
+  { type: 'translate', question: 'Translate to Spanish: "Hello, how are you?"', answer: ['Hola, ¿cómo estás?', 'hola como estas', 'Hola ¿cómo estás?', 'Hola, como estas'], explanation: 'Hola, ¿cómo estás?' },
+  { type: 'translate', question: 'Translate to Spanish: "Good morning, my friend."', answer: ['Buenos días, mi amigo', 'buenos dias mi amigo', 'Buenos dias, mi amigo'], explanation: 'Buenos días, mi amigo' },
+  { type: 'translate', question: 'Translate to Spanish: "What is your name?"', answer: ['¿Cómo te llamas?', 'como te llamas', '¿cómo te llamas?', '¿Cómo se llama?', 'como se llama'], explanation: '¿Cómo te llamas?' },
+  { type: 'translate', question: 'Translate to Spanish: "My name is Carlos."', answer: ['Me llamo Carlos', 'mi nombre es Carlos', 'Me nombre es Carlos'], explanation: 'Me llamo Carlos' },
+  { type: 'translate', question: 'Translate to Spanish: "Nice to meet you."', answer: ['Mucho gusto', 'encantado', 'encantada'], explanation: 'Mucho gusto' },
+  { type: 'translate', question: 'Translate to Spanish: "Where are you from?"', answer: ['¿De dónde eres?', 'de donde eres', '¿de donde eres?'], explanation: '¿De dónde eres?' },
+  { type: 'translate', question: 'Translate to Spanish: "I am from the Philippines."', answer: ['Soy de las Filipinas', 'soy de Filipinas', 'Soy de Filipinas'], explanation: 'Soy de las Filipinas' },
+  { type: 'translate', question: 'Translate to Spanish: "Thank you very much, you are welcome."', answer: ['Muchas gracias, de nada', 'Muchas gracias de nada', 'muchas gracias, de nada', 'muchas gracias de nada'], explanation: 'Muchas gracias, de nada' },
+  { type: 'translate', question: 'Translate to Spanish: "How old are you?"', answer: ['¿Cuántos años tienes?', 'cuantos anos tienes', '¿cuantos anos tienes?'], explanation: '¿Cuántos años tienes?' },
+  { type: 'translate', question: 'Translate to Spanish: "See you tomorrow."', answer: ['Hasta mañana', 'hasta mañana', 'Hasta manana', 'hasta manana'], explanation: 'Hasta mañana' },
+  { type: 'translate', question: 'Translate to Spanish: "Good afternoon, sir."', answer: ['Buenas tardes, señor', 'buenas tardes senor', 'Buenas tardes senor'], explanation: 'Buenas tardes, señor' },
+  { type: 'translate', question: 'Translate to Spanish: "Good night, see you later."', answer: ['Buenas noches, hasta luego', 'buenas noches hasta luego', 'Buenas noches, hasta luego.'], explanation: 'Buenas noches, hasta luego' },
+  { type: 'translate', question: 'Translate to Spanish: "Excuse me, please."', answer: ['Disculpe, por favor', 'disculpe por favor', 'Con permiso, por favor', 'con permiso por favor'], explanation: 'Disculpe, por favor' },
+  { type: 'translate', question: 'Translate to Spanish: "I am fine, and you?"', answer: ['Estoy bien, ¿y tú?', 'estoy bien y tu', 'Estoy bien y tu', 'estoy bien, ¿y tú?', 'Estoy bien, ¿y tú?'], explanation: 'Estoy bien, ¿y tú?' },
+  { type: 'translate', question: 'Translate to Spanish: "I must go, goodbye."', answer: ['Tengo que irme, adiós', 'debo irme adios', 'tengo que irme adios', 'Tengo que irme, adios'], explanation: 'Tengo que irme, adiós' }
+]
+
 export const ch4 = {
   icon: '💬',
   title: 'Pag-uusap sa Wikang Kastila',
   description: 'Basic Conversation in Spanish — Greetings, Daily Phrases, and Farewells',
   lesson: <Lesson4 />,
   activities,
+  communicate,
   quiz,
 }

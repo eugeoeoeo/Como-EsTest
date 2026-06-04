@@ -85,11 +85,30 @@ const quiz = [
   { type:'mc', question:'What best summarizes the Spanish language\'s journey in the Philippines?', options:['Arrived, became dominant, remains official','Arrived, limited spread, declined, now optional with cultural importance','Arrived and immediately disappeared','Was never introduced'], answer:1, explanation:'Spanish arrived but never became dominant, declined after American period, and is now optional but culturally important.' },
 ]
 
+const communicate = [
+  { type: 'translate', question: 'Translate to Spanish: "I study Spanish."', answer: ['estudio español', 'estudio espanol'], explanation: 'estudio español (I study Spanish)' },
+  { type: 'translate', question: 'Translate to Spanish: "I write in Spanish."', answer: ['escribo en español', 'escribo en espanol'], explanation: 'escribo en español (I write in Spanish)' },
+  { type: 'translate', question: 'Translate to Spanish: "Rizal wrote novels."', answer: ['Rizal escribió novelas', 'Rizal escribio novelas'], explanation: 'Rizal escribió novelas (Rizal wrote novels)' },
+  { type: 'translate', question: 'Translate to Spanish: "The language is important."', answer: ['el idioma es importante', 'el lenguaje es importante'], explanation: 'el idioma es importante (The language is important)' },
+  { type: 'translate', question: 'Translate to Spanish: "Spanish is part of history."', answer: ['el español es parte de la historia', 'el espanol es parte de la historia'], explanation: 'el español es parte de la historia (Spanish is part of history)' },
+  { type: 'translate', question: 'Translate to Spanish: "I want to speak Spanish."', answer: ['quiero hablar español', 'quiero hablar espanol'], explanation: 'quiero hablar español (I want to speak Spanish)' },
+  { type: 'translate', question: 'Translate to Spanish: "He speaks a creole."', answer: ['él habla un criollo', 'el habla un criollo'], explanation: 'él habla un criollo (He speaks a creole)' },
+  { type: 'translate', question: 'Translate to Spanish: "I live in the Philippines."', answer: ['vivo en las Filipinas', 'vivo en Filipinas'], explanation: 'vivo en las Filipinas (I live in the Philippines)' },
+  { type: 'translate', question: 'Translate to Spanish: "It is a beautiful history."', answer: ['es una historia hermosa', 'es una hermosa historia'], explanation: 'es una historia hermosa (It is a beautiful history)' },
+  { type: 'translate', question: 'Translate to Spanish: "We read Spanish books."', answer: ['leemos libros en español', 'leemos libros en espanol'], explanation: 'leemos libros en español (We read Spanish books)' },
+  { type: 'translate', question: 'Translate to Spanish: "The teacher speaks Spanish."', answer: ['el profesor habla español', 'el maestro habla espanol'], explanation: 'el profesor habla español (The teacher speaks Spanish)' },
+  { type: 'translate', question: 'Translate to Spanish: "The school teaches history."', answer: ['la escuela enseña historia', 'la escuela ensena historia'], explanation: 'la escuela enseña historia (The school teaches history)' },
+  { type: 'translate', question: 'Translate to Spanish: "We are Filipinos."', answer: ['somos filipinos'], explanation: 'somos filipinos (We are Filipinos)' },
+  { type: 'translate', question: 'Translate to Spanish: "I speak a little Spanish."', answer: ['hablo un poco de español', 'hablo un poco de espanol'], explanation: 'hablo un poco de español (I speak a little Spanish)' },
+  { type: 'translate', question: 'Translate to Spanish: "It is a beautiful language."', answer: ['es un idioma hermoso', 'es un lenguaje hermoso'], explanation: 'es un idioma hermoso (It is a beautiful language)' }
+]
+
 export const ch1 = {
   icon: '📜',
   title: 'Kasaysayan ng Wikang Espanyol sa Pilipinas',
   description: 'History of the Spanish language in the Philippines — from 1521 to present',
   lesson: <Lesson1 />,
   activities,
+  communicate,
   quiz,
 }

@@ -85,11 +85,30 @@ const quiz = [
   { type:'fill', question:'The Spanish alphabet has ________ letters.', answer:['27','twenty-seven','veintisiete'], explanation:'Ang alpabetong Espanyol ay binubuo ng 27 na letra.' },
 ]
 
+const communicate = [
+  { type: 'translate', question: 'Translate to Spanish: "The alphabet has twenty-seven letters."', answer: ['el alfabeto tiene veintisiete letras', 'el abecedario tiene veintisiete letras'], explanation: 'el alfabeto tiene veintisiete letras' },
+  { type: 'translate', question: 'Translate to Spanish: "How do you spell your name?"', answer: ['¿Cómo se escribe tu nombre?', 'cómo se escribe tu nombre', '¿como se escribe tu nombre?', 'como se escribe tu nombre'], explanation: '¿Cómo se escribe tu nombre? (How is your name written?)' },
+  { type: 'translate', question: 'Translate to Spanish: "The letter H is silent."', answer: ['la letra hache es muda', 'la hache es muda'], explanation: 'la hache es muda (the hache is silent)' },
+  { type: 'translate', question: 'Translate to Spanish: "The double R represents a rolled sound."', answer: ['la doble erre representa un sonido vibrante', 'la rr representa un sonido vibrante', 'la doble erre representa un sonido trillado', 'la rr representa un sonido trillado'], explanation: 'la doble erre representa un sonido vibrante' },
+  { type: 'translate', question: 'Translate to Spanish: "My name is written with double L."', answer: ['mi nombre se escribe con doble ele', 'mi nombre se escribe con ll'], explanation: 'mi nombre se escribe con doble ele' },
+  { type: 'translate', question: 'Translate to Spanish: "How is the letter J pronounced?"', answer: ['¿Cómo se pronuncia la letra jota?', 'cómo se pronuncia la letra jota', '¿como se pronuncia la letra jota?', 'como se pronuncia la letra jota'], explanation: '¿Cómo se pronuncia la letra jota?' },
+  { type: 'translate', question: 'Translate to Spanish: "The vowels are the same as in Tagalog."', answer: ['las vocales son las mismas que en tagalo', 'las vocales son iguales que en tagalo', 'las vocales son las mismas del tagalo'], explanation: 'las vocales son las mismas que en tagalo' },
+  { type: 'translate', question: 'Translate to Spanish: "Spanish is easy to pronounce."', answer: ['el español es fácil de pronunciar', 'el espanol es facil de pronunciar'], explanation: 'el español es fácil de pronunciar' },
+  { type: 'translate', question: 'Translate to Spanish: "Pronounce the word \'amiga\'."', answer: ['pronuncia la palabra amiga'], explanation: 'pronuncia la palabra amiga' },
+  { type: 'translate', question: 'Translate to Spanish: "The letter Ñ is a separate letter."', answer: ['la letra eñe es una letra separada', 'la eñe es una letra separada', 'la letra eñe es una letra independiente'], explanation: 'la letra eñe es una letra separada' },
+  { type: 'translate', question: 'Translate to Spanish: "I write with a pen."', answer: ['escribo con un bolígrafo', 'escribo con una pluma', 'escribo con un boligrafo'], explanation: 'escribo con un bolígrafo' },
+  { type: 'translate', question: 'Translate to Spanish: "We practice the alphabet."', answer: ['practicamos el alfabeto', 'practicamos el abecedario'], explanation: 'practicamos el alfabeto' },
+  { type: 'translate', question: 'Translate to Spanish: "The double L is pronounced like Y."', answer: ['la doble ele se pronuncia como ye', 'la ll se pronuncia como ye', 'la ll se pronuncia como i griega'], explanation: 'la doble ele se pronuncia como ye' },
+  { type: 'translate', question: 'Translate to Spanish: "We spell the words."', answer: ['deletreamos las palabras'], explanation: 'deletreamos las palabras' },
+  { type: 'translate', question: 'Translate to Spanish: "I speak Spanish slowly."', answer: ['hablo español despacio', 'hablo espanol despacio'], explanation: 'hablo español despacio' }
+]
+
 export const ch2 = {
   icon: '🔤',
   title: 'Ang Alpabetong Espanyol at Pagbigkas',
   description: 'The Spanish Alphabet (27 letters + 4 digraphs) and Pronunciation Guide',
   lesson: <Lesson2 />,
   activities,
+  communicate,
   quiz,
 }

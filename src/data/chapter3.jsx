@@ -86,11 +86,30 @@ const quiz = [
   { type:'fill', question:'"They speak" in Spanish is "Ellos ________."', answer:['hablan'], explanation:'Hablan is the third person plural conjugation.', pronunciation:'Ellos hablan' },
 ]
 
+const communicate = [
+  { type: 'translate', question: 'Translate to Spanish: "The house is big."', answer: ['la casa es grande'], explanation: 'la casa es grande' },
+  { type: 'translate', question: 'Translate to Spanish: "I don\'t have the book."', answer: ['no tengo el libro'], explanation: 'no tengo el libro' },
+  { type: 'translate', question: 'Translate to Spanish: "The books are on the table."', answer: ['los libros están en la mesa', 'los libros estan en la mesa'], explanation: 'los libros están en la mesa' },
+  { type: 'translate', question: 'Translate to Spanish: "The girl is very tall."', answer: ['la niña es muy alta', 'la nina es muy alta'], explanation: 'la niña es muy alta' },
+  { type: 'translate', question: 'Translate to Spanish: "Do you speak Spanish?"', answer: ['¿Hablas español?', 'hablas espanol', '¿hablas espanol?', 'Hablas español'], explanation: '¿Hablas español?' },
+  { type: 'translate', question: 'Translate to Spanish: "I go to see him."', answer: ['voy a verlo', 'lo voy a ver'], explanation: 'voy a verlo or lo voy a ver' },
+  { type: 'translate', question: 'Translate to Spanish: "They speak Spanish."', answer: ['ellos hablan español', 'ellos hablan espanol'], explanation: 'ellos hablan español' },
+  { type: 'translate', question: 'Translate to Spanish: "He has some friends."', answer: ['él tiene algunos amigos', 'el tiene algunos amigos', 'él tiene unos amigos', 'el tiene unos amigos'], explanation: 'él tiene algunos amigos' },
+  { type: 'translate', question: 'Translate to Spanish: "The boy is small."', answer: ['el niño es pequeño', 'el nino es pequeno', 'el chico es pequeño', 'el chico es pequeno'], explanation: 'el niño es pequeño' },
+  { type: 'translate', question: 'Translate to Spanish: "The apple is red."', answer: ['la manzana es roja'], explanation: 'la manzana es roja' },
+  { type: 'translate', question: 'Translate to Spanish: "I want a house."', answer: ['quiero una casa'], explanation: 'quiero una casa' },
+  { type: 'translate', question: 'Translate to Spanish: "We live in a tall building."', answer: ['vivimos en un edificio alto'], explanation: 'vivimos en un edificio alto' },
+  { type: 'translate', question: 'Translate to Spanish: "Where is the book?"', answer: ['¿Dónde está el libro?', 'donde esta el libro', '¿donde esta el libro?'], explanation: '¿Dónde está el libro?' },
+  { type: 'translate', question: 'Translate to Spanish: "She does not speak English."', answer: ['ella no habla inglés', 'ella no habla ingles'], explanation: 'ella no habla inglés' },
+  { type: 'translate', question: 'Translate to Spanish: "I go to school."', answer: ['voy a la escuela'], explanation: 'voy a la escuela' }
+]
+
 export const ch3 = {
   icon: '📝',
   title: 'Pagbuo ng Pangungusap sa Wikang Kastila',
   description: '10 Rules for Constructing Sentences in Spanish',
   lesson: <Lesson3 />,
   activities,
+  communicate,
   quiz,
 }

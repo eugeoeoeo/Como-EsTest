@@ -12,7 +12,7 @@ export const setCurrentUserId = (userId) => {
 
 const getAll = () => JSON.parse(localStorage.getItem(KEY) || '{}')
 const save = d => localStorage.setItem(KEY, JSON.stringify(d))
-const ensure = (d, ch) => { if (!d[ch]) d[ch] = { lessonDone: false, activityScore: null, activityTotal: null, quizScore: null, quizTotal: null }; return d }
+const ensure = (d, ch) => { if (!d[ch]) d[ch] = { lessonDone: false, activityScore: null, activityTotal: null, communicateScore: null, communicateTotal: null, quizScore: null, quizTotal: null }; return d }
 
 const syncChapterToSupabase = async (ch, d) => {
   if (!currentUserId) return
@@ -23,6 +23,8 @@ const syncChapterToSupabase = async (ch, d) => {
     lesson_completed: data.lessonDone,
     activity_score: data.activityScore || 0,
     activity_total: data.activityTotal || 0,
+    communicate_score: data.communicateScore || 0,
+    communicate_total: data.communicateTotal || 0,
     quiz_score: data.quizScore || 0,
     quiz_total: data.quizTotal || 0,
     updated_at: new Date().toISOString()
@@ -66,6 +68,8 @@ export const fetchAndSyncProgress = async (userId) => {
         lessonDone: row.lesson_completed,
         activityScore: row.activity_score,
         activityTotal: row.activity_total,
+        communicateScore: row.communicate_score,
+        communicateTotal: row.communicate_total,
         quizScore: row.quiz_score,
         quizTotal: row.quiz_total
       }
@@ -111,6 +115,8 @@ export const syncGuestProgressToUser = async (userId) => {
       lesson_completed: data.lessonDone,
       activity_score: data.activityScore || 0,
       activity_total: data.activityTotal || 0,
+      communicate_score: data.communicateScore || 0,
+      communicate_total: data.communicateTotal || 0,
       quiz_score: data.quizScore || 0,
       quiz_total: data.quizTotal || 0,
       updated_at: new Date().toISOString()
@@ -217,9 +223,10 @@ export const getChapterProgress = ch => {
   const d = getAll()[ch]
   if (!d) return 0
   let p = 0
-  if (d.lessonDone) p += 34
-  if (d.activityScore !== null) p += 33
-  if (d.quizScore !== null) p += 33
+  if (d.lessonDone) p += 25
+  if (d.activityScore !== null) p += 25
+  if (d.communicateScore !== null) p += 25
+  if (d.quizScore !== null) p += 25
   return Math.min(p, 100)
 }
 

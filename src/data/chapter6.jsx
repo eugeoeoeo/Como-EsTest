@@ -86,11 +86,30 @@ const quiz = [
   { type:'mc', question:'What is the plural of "gris"?', options:['grises','griss','grisese','griseses'], answer:0, explanation:'grises = plural of gris.' },
 ]
 
+const communicate = [
+  { type: 'translate', question: 'Translate to Spanish: "The car is blue."', answer: ['El coche es azul', 'el coche es azul', 'El carro es azul', 'el carro es azul'], explanation: 'El coche es azul / El carro es azul' },
+  { type: 'translate', question: 'Translate to Spanish: "The flowers are yellow."', answer: ['Las flores son amarillas', 'las flores son amarillas'], explanation: 'Las flores son amarillas' },
+  { type: 'translate', question: 'Translate to Spanish: "I have a green book."', answer: ['Tengo un libro verde', 'tengo un libro verde'], explanation: 'Tengo un libro verde' },
+  { type: 'translate', question: 'Translate to Spanish: "The cat is black."', answer: ['El gato es negro', 'el gato es negro'], explanation: 'El gato es negro' },
+  { type: 'translate', question: 'Translate to Spanish: "The tables are white."', answer: ['Las mesas son blancas', 'las mesas son blancas'], explanation: 'Las mesas son blancas' },
+  { type: 'translate', question: 'Translate to Spanish: "He wears red shoes."', answer: ['Él usa zapatos rojos', 'el usa zapatos rojos', 'Él lleva zapatos rojos', 'el lleva zapatos rojos'], explanation: 'Él usa zapatos rojos / Él lleva zapatos rojos' },
+  { type: 'translate', question: 'Translate to Spanish: "She wants a pink dress."', answer: ['Ella quiere un vestido rosa', 'ella quiere un vestido rosa', 'Ella quiere un vestido rosado', 'ella quiere un vestido rosado'], explanation: 'Ella quiere un vestido rosa' },
+  { type: 'translate', question: 'Translate to Spanish: "The dog is brown."', answer: ['El perro es marrón', 'el perro es marron', 'El perro es marron'], explanation: 'El perro es marrón' },
+  { type: 'translate', question: 'Translate to Spanish: "We have grey pens."', answer: ['Tenemos bolígrafos grises', 'tenemos boligrafos grises', 'Tenemos plumas grises', 'tenemos plumas grises'], explanation: 'Tenemos bolígrafos grises' },
+  { type: 'translate', question: 'Translate to Spanish: "The sky is light blue."', answer: ['El cielo es azul claro', 'el cielo es azul claro'], explanation: 'El cielo es azul claro' },
+  { type: 'translate', question: 'Translate to Spanish: "I like dark green."', answer: ['Me gusta el verde oscuro', 'me gusta el verde oscuro'], explanation: 'Me gusta el verde oscuro' },
+  { type: 'translate', question: 'Translate to Spanish: "They buy orange shirts."', answer: ['Ellos compran camisas naranjas', 'ellos compran camisas naranjas', 'Ellos compran camisetas naranjas', 'ellos compran camisetas naranjas'], explanation: 'Ellos compran camisas naranjas' },
+  { type: 'translate', question: 'Translate to Spanish: "Las apples are red."', answer: ['Las manzanas son rojas', 'las manzanas son rojas'], explanation: 'Las manzanas son rojas' },
+  { type: 'translate', question: 'Translate to Spanish: "My room is white."', answer: ['Mi habitación es blanca', 'mi habitacion es blanca', 'Mi cuarto es blanco', 'mi cuarto es blanco'], explanation: 'Mi habitación es blanca / Mi cuarto es blanco' },
+  { type: 'translate', question: 'Translate to Spanish: "I have a gold ring."', answer: ['Tengo un anillo de oro', 'tengo un anillo de oro', 'Tengo un anillo dorado', 'tengo un anillo dorado'], explanation: 'Tengo un anillo de oro' }
+]
+
 export const ch6 = {
   icon: '🎨',
   title: 'Los Colores en Español',
   description: 'Colors in Spanish — Agreement, Inflection, and Vocabulary',
   lesson: <Lesson6 />,
   activities,
+  communicate,
   quiz,
 }

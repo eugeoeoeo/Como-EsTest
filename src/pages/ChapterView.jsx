@@ -37,6 +37,7 @@ export default function ChapterView() {
   const tabs = [
     { key: 'lesson', label: '📖 Lesson' },
     { key: 'activity', label: '🎯 Activity' },
+    { key: 'communicate', label: '💬 Communicate' },
     { key: 'quiz', label: '📝 Quiz' },
   ]
 
@@ -84,7 +85,25 @@ export default function ChapterView() {
           <QuizEngine questions={ch.activities} type="activity" chapter={'ch' + chNum} onComplete={refresh} />
           {getScore('ch' + chNum, 'activity').score !== null && (
             <div style={{ marginTop: 24, textAlign: 'right' }}>
-              <button className="btn btn-primary" onClick={() => { setTab('quiz'); window.scrollTo(0, 0); }}>Proceed to Quiz →</button>
+              <button className="btn btn-primary btn-sm" onClick={() => { setTab('communicate'); window.scrollTo(0, 0); }}>Proceed to Communicate →</button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {tab === 'communicate' && (
+        <div>
+          <div style={{ marginBottom: 20, padding: 16, background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: 'var(--radius-sm)' }}>
+            <h3>💬 Communicate Practice</h3>
+            <p style={{ color: 'var(--text-sec)', fontSize: '.95rem', margin: '8px 0 0 0' }}>
+              Apply this chapter's teachings in real conversations. Practice directly translating statements and building conversational speeches in Spanish.
+            </p>
+          </div>
+          <QuizEngine questions={ch.communicate || []} type="communicate" chapter={'ch' + chNum} onComplete={refresh} />
+          {getScore('ch' + chNum, 'communicate').score !== null && (
+            <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+              <button className="btn btn-ghost btn-sm" onClick={() => { setTab('activity'); window.scrollTo(0, 0); }}>← Back to Activity</button>
+              <button className="btn btn-primary btn-sm" onClick={() => { setTab('quiz'); window.scrollTo(0, 0); }}>Proceed to Quiz →</button>
             </div>
           )}
         </div>
@@ -95,7 +114,7 @@ export default function ChapterView() {
           <QuizEngine questions={ch.quiz} type="quiz" chapter={'ch' + chNum} onComplete={refresh} />
           {getScore('ch' + chNum, 'quiz').score !== null && (
             <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
-              <button className="btn btn-ghost btn-sm" onClick={() => { setTab('activity'); window.scrollTo(0, 0); }}>← Back to Activity</button>
+              <button className="btn btn-ghost btn-sm" onClick={() => { setTab('communicate'); window.scrollTo(0, 0); }}>← Back to Communicate</button>
               {chNum < 7 ? (
                 <button className="btn btn-primary btn-sm" onClick={() => { navigate(`/chapter/${chNum + 1}`); setTab('lesson'); window.scrollTo(0, 0); }}>Go to Chapter {chNum + 1} →</button>
               ) : (

@@ -395,11 +395,30 @@ const quiz = [
   { type: 'mc', question: 'What is <strong>129</strong> in Spanish?', options: ['cien veintinueve', 'ciento veintinueve', 'cien y veintinueve', 'ciento y veintinueve'], answer: 1, explanation: '129 is ciento veintinueve.' }
 ]
 
+const communicate = [
+  { type: 'translate', question: 'Translate to Spanish: "Today is January first."', answer: ['Hoy es el primero de enero', 'hoy es primero de enero', 'Hoy es primero de enero'], explanation: 'Hoy es el primero de enero' },
+  { type: 'translate', question: 'Translate to Spanish: "I am twenty years old."', answer: ['Tengo veintidós años', 'Tengo veinte años', 'tengo veinte anos', 'Tengo veinte anos'], explanation: 'Tengo veinte años' },
+  { type: 'translate', question: 'Translate to Spanish: "The book costs fifteen pesos."', answer: ['El libro cuesta quince pesos', 'el libro cuesta quince pesos'], explanation: 'El libro cuesta quince pesos' },
+  { type: 'translate', question: 'Translate to Spanish: "It is three o\'clock."', answer: ['Son las tres', 'son las tres'], explanation: 'Son las tres' },
+  { type: 'translate', question: 'Translate to Spanish: "It is one o\'clock."', answer: ['Es la una', 'es la una'], explanation: 'Es la una (singular because it is one)' },
+  { type: 'translate', question: 'Translate to Spanish: "I have five hundred pesos."', answer: ['Tengo quinientos pesos', 'tengo quinientos pesos'], explanation: 'Tengo quinientos pesos (quinientos agrees with pesos)' },
+  { type: 'translate', question: 'Translate to Spanish: "The building has ten floors."', answer: ['El edificio tiene diez pisos', 'el edificio tiene diez pisos'], explanation: 'El edificio tiene diez pisos' },
+  { type: 'translate', question: 'Translate to Spanish: "My phone number is nine-eight-seven."', answer: ['Mi número de teléfono es nueve ocho siete', 'mi numero de telefono es nueve ocho siete', 'Mi número es nueve ocho siete'], explanation: 'Mi número de teléfono es nueve ocho siete' },
+  { type: 'translate', question: 'Translate to Spanish: "Today is October twelve."', answer: ['Hoy es doce de octubre', 'hoy es el doce de octubre', 'Hoy es el doce de octubre'], explanation: 'Hoy es doce de octubre' },
+  { type: 'translate', question: 'Translate to Spanish: "There are one million books."', answer: ['Hay un millón de libros', 'hay un millon de libros', 'Hay un millon de libros'], explanation: 'Hay un millón de libros' },
+  { type: 'translate', question: 'Translate to Spanish: "He is thirty-one years old."', answer: ['Él tiene treinta y un años', 'el tiene treinta y un anos', 'Tiene treinta y un años'], explanation: 'Él tiene treinta y un años' },
+  { type: 'translate', question: 'Translate to Spanish: "We have twenty-four hours."', answer: ['Tenemos veinticuatro horas', 'tenemos veinticuatro horas'], explanation: 'Tenemos veinticuatro horas' },
+  { type: 'translate', question: 'Translate to Spanish: "It is twelve o\'clock."', answer: ['Son las doce', 'son las doce'], explanation: 'Son las doce' },
+  { type: 'translate', question: 'Translate to Spanish: "She has three dogs."', answer: ['Ella tiene tres perros', 'ella tiene tres perros'], explanation: 'Ella tiene tres perros' },
+  { type: 'translate', question: 'Translate to Spanish: "I want fifty pesos."', answer: ['Quiero cincuenta pesos', 'quiero cincuenta pesos'], explanation: 'Quiero cincuenta pesos' }
+]
+
 export const ch5 = {
   icon: '🔢',
   title: 'Los Números en Español',
   description: 'Numbers in Spanish — Cardinals, Ordinals, Usage, and Patterns',
   lesson: <Lesson5 />,
   activities,
+  communicate,
   quiz
 }

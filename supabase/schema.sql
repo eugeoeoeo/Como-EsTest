@@ -30,6 +30,8 @@ CREATE TABLE IF NOT EXISTS public.chapter_progress (
   lesson_completed BOOLEAN DEFAULT FALSE,
   activity_score INTEGER DEFAULT 0,
   activity_total INTEGER DEFAULT 0,
+  communicate_score INTEGER DEFAULT 0,
+  communicate_total INTEGER DEFAULT 0,
   quiz_score INTEGER DEFAULT 0,
   quiz_total INTEGER DEFAULT 0,
   updated_at TIMESTAMPTZ DEFAULT NOW(),

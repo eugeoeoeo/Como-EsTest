@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { speak } from '../utils/pronunciation'
 import { setScore, setExamScore, getScore, getExamScore } from '../utils/progress'
 
@@ -9,6 +9,7 @@ function normalize(s) {
 }
 
 function checkAnswer(q, answer) {
+  if (answer === undefined || answer === null || answer === '') return false
   if (q.type === 'mc') return answer === q.answer
   if (q.type === 'tf') return answer === q.answer
   const accepted = Array.isArray(q.answer) ? q.answer : [q.answer]
@@ -69,11 +70,11 @@ function QuestionCard({ q, idx, answered, userAnswer, onSelectOption, onSubmitFi
             placeholder={q.type === 'translate' ? 'Write the translation...' : q.type === 'error' ? 'Write the corrected sentence...' : 'Type your answer...'}
             value={answered ? (userAnswer || '') : fillVal}
             onChange={e => setFillVal(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && !answered && onSubmitFill(idx, fillVal)}
+            onKeyDown={e => e.key === 'Enter' && !answered && fillVal.trim() && onSubmitFill(idx, fillVal)}
             disabled={answered}
           />
           {!answered && (
-            <button className="btn btn-primary btn-sm" style={{ marginTop: 8 }} onClick={() => onSubmitFill(idx, fillVal)}>Check</button>
+            <button className="btn btn-primary btn-sm" style={{ marginTop: 8 }} onClick={() => fillVal.trim() && onSubmitFill(idx, fillVal)}>Check Answer</button>
           )}
         </>
       )}
@@ -88,90 +89,133 @@ function QuestionCard({ q, idx, answered, userAnswer, onSelectOption, onSubmitFi
   )
 }
 
-export default function QuizEngineComponent({ questions, type, chapter, onComplete }) {
+export default function QuizEngine({ questions, type, chapter, onComplete }) {
   const [answers, setAnswers] = useState({})
   const [answeredSet, setAnsweredSet] = useState(new Set())
-  const [submitted, setSubmitted] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  // 1. Sort questions to guarantee MCQ & TF first, then Fill, then Translate/Error
+  const sortedQuestions = useMemo(() => {
+    return [...questions].sort((a, b) => {
+      const typeOrder = { mc: 1, tf: 1, fill: 2, translate: 3, error: 3 }
+      const orderA = typeOrder[a.type] || 4
+      const orderB = typeOrder[b.type] || 4
+      return orderA - orderB
+    })
+  }, [questions])
 
   const existing = type === 'exam' ? getExamScore() : getScore(chapter, type)
 
+  // Calculate live score
+  const score = sortedQuestions.reduce((s, q, i) => s + (answeredSet.has(i) && checkAnswer(q, answers[i]) ? 1 : 0), 0)
+  const pct = sortedQuestions.length > 0 ? Math.round(score / sortedQuestions.length * 100) : 0
+  const isFinished = sortedQuestions.length > 0 && answeredSet.size === sortedQuestions.length
+
+  // Automatically save score when user finishes all questions
+  useEffect(() => {
+    if (isFinished && !saved) {
+      if (type === 'exam') {
+        setExamScore(score, sortedQuestions.length)
+      } else {
+        setScore(chapter, type, score, sortedQuestions.length)
+      }
+      setSaved(true)
+      if (onComplete) onComplete()
+    }
+  }, [isFinished, score, sortedQuestions.length, type, chapter, onComplete, saved])
+
   const selectOption = (idx, val) => {
+    if (answeredSet.has(idx)) return
     setAnswers(a => ({ ...a, [idx]: val }))
+    setAnsweredSet(s => {
+      const next = new Set(s)
+      next.add(idx)
+      return next
+    })
   }
 
   const submitFill = (idx, val) => {
-    if (!val.trim()) return
+    if (answeredSet.has(idx)) return
     setAnswers(a => ({ ...a, [idx]: val }))
-    setAnsweredSet(s => new Set(s).add(idx))
-  }
-
-  const submitAll = () => {
-    const newAnswered = new Set()
-    const finalAnswers = { ...answers }
-    questions.forEach((q, i) => {
-      newAnswered.add(i)
-      if (finalAnswers[i] === undefined) {
-        finalAnswers[i] = q.type === 'mc' ? -1 : q.type === 'tf' ? null : ''
-      }
+    setAnsweredSet(s => {
+      const next = new Set(s)
+      next.add(idx)
+      return next
     })
-    setAnswers(finalAnswers)
-    setAnsweredSet(newAnswered)
-    setSubmitted(true)
-
-    let score = 0
-    questions.forEach((q, i) => { if (checkAnswer(q, finalAnswers[i])) score++ })
-
-    if (type === 'exam') setExamScore(score, questions.length)
-    else setScore(chapter, type, score, questions.length)
-    if (onComplete) onComplete()
   }
 
   const retake = () => {
     setAnswers({})
     setAnsweredSet(new Set())
-    setSubmitted(false)
+    setSaved(false)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const score = submitted ? questions.reduce((s, q, i) => s + (checkAnswer(q, answers[i]) ? 1 : 0), 0) : 0
-  const pct = submitted ? Math.round(score / questions.length * 100) : 0
+  // Group headers check
+  const renderPartHeader = (idx) => {
+    const q = sortedQuestions[idx]
+    const prevQ = idx > 0 ? sortedQuestions[idx - 1] : null
+
+    const getGroup = (t) => {
+      if (t === 'mc' || t === 'tf') return 1
+      if (t === 'fill') return 2
+      if (t === 'translate' || t === 'error') return 3
+      return 4
+    }
+
+    const currentGroup = getGroup(q.type)
+    const prevGroup = prevQ ? getGroup(prevQ.type) : null
+
+    if (currentGroup !== prevGroup) {
+      if (currentGroup === 1) return <div className="part-header">📋 Part I: Multiple Choice & True/False</div>
+      if (currentGroup === 2) return <div className="part-header">✍️ Part II: Identification (Fill in the Blank)</div>
+      if (currentGroup === 3) return <div className="part-header">🗣️ Part III: Translation & Applied Conversation</div>
+    }
+    return null
+  }
 
   return (
     <div>
       <div className="quiz-header">
         <div>
-          <h2>{type === 'activity' ? '🎯 Activity' : type === 'quiz' ? '📝 Quiz' : '🏆 Final Exam'}</h2>
-          <p className="quiz-progress-text">{questions.length} questions</p>
+          <h2>
+            {type === 'activity' && '🎯 Activity'}
+            {type === 'communicate' && '🗣️ Communicate Practice'}
+            {type === 'quiz' && '📝 Quiz'}
+            {type === 'exam' && '🏆 Final Exam'}
+          </h2>
+          <p className="quiz-progress-text">
+            {answeredSet.size} of {sortedQuestions.length} answered
+          </p>
         </div>
-        <div className="quiz-score-display">{submitted ? `${score}/${questions.length}` : `0/${questions.length}`}</div>
+        <div className="quiz-score-display">
+          {score} / {sortedQuestions.length}
+        </div>
       </div>
 
-      {existing && existing.score !== null && !submitted && (
+      {existing && existing.score !== null && !isFinished && (
         <div className="lesson-card" style={{ borderColor: 'var(--gold)', marginBottom: 16 }}>
-          <p>📊 <strong>Previous Score:</strong> {existing.score}/{existing.total} ({Math.round(existing.score / existing.total * 100)}%)</p>
+          <p>📊 <strong>Previous Highest Score:</strong> {existing.score}/{existing.total} ({Math.round(existing.score / existing.total * 100)}%)</p>
         </div>
       )}
 
-      {questions.map((q, i) => (
-        <QuestionCard
-          key={i} q={q} idx={i}
-          answered={answeredSet.has(i)}
-          userAnswer={answers[i]}
-          onSelectOption={selectOption}
-          onSubmitFill={submitFill}
-        />
+      {sortedQuestions.map((q, i) => (
+        <div key={i}>
+          {renderPartHeader(i)}
+          <QuestionCard
+            q={q} idx={i}
+            answered={answeredSet.has(i)}
+            userAnswer={answers[i]}
+            onSelectOption={selectOption}
+            onSubmitFill={submitFill}
+          />
+        </div>
       ))}
 
-      {!submitted && (
-        <div style={{ textAlign: 'center', marginTop: 24 }}>
-          <button className="btn btn-primary" onClick={submitAll}>Submit All Answers</button>
-        </div>
-      )}
-
-      {submitted && (
-        <div className="quiz-results">
+      {isFinished && (
+        <div className="quiz-results animate-fade-in">
           <h2>{pct >= 60 ? '¡Felicidades!' : '¡Sigue intentando!'}</h2>
-          <div className={`score-big ${pct >= 60 ? 'pass' : 'fail'}`}>{score}/{questions.length}</div>
+          <div className={`score-big ${pct >= 60 ? 'pass' : 'fail'}`}>{score}/{sortedQuestions.length}</div>
           <p>{pct}% — {pct >= 60 ? 'You passed! Great job!' : 'Review the material and try again.'}</p>
           <div className="btn-group">
             <button className="btn btn-primary" onClick={retake}>🔄 Retake</button>

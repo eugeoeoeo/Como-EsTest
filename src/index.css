@@ -229,3 +229,14 @@ input,button,select,textarea{font-family:inherit;font-size:inherit}
   .dashboard-stats{grid-template-columns:1fr}
   .auth-form{padding:24px 20px}
 }
+
+.part-header {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 32px 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+}
+

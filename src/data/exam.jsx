@@ -111,5 +111,26 @@ export const examQuestions = [
   { type: 'mc', question: 'Translate: "foot" (with article).', options: ['el pie', 'la pie', 'los pies', 'la mano'], answer: 0, explanation: 'el pie.' },
   { type: 'mc', question: 'Translate: "knee".', options: ['la rodilla', 'la pierna', 'el tobillo', 'el pie'], answer: 0, explanation: 'la rodilla.' },
   { type: 'mc', question: 'What does "Me duelen los pies" mean?', options: ['My feet hurt', 'My foot hurts', 'My hands hurt', 'My head hurts'], answer: 0, explanation: 'My feet hurt.' },
-  { type: 'tf', question: '"el cuello" means the neck.', answer: true, explanation: 'Yes, el cuello = neck.' }
+  { type: 'tf', question: '"el cuello" means the neck.', answer: true, explanation: 'Yes, el cuello = neck.' },
+  
+  // DIRECT TRANSLATIONS INTO SPANISH (Applied Review)
+  { type: 'translate', question: 'Translate to Spanish: "the tall boy"', answer: ['el niño alto', 'el nino alto'], explanation: 'el niño alto (masc. singular agreement)' },
+  { type: 'translate', question: 'Translate to Spanish: "the tall girl"', answer: ['la niña alta', 'la nina alta'], explanation: 'la niña alta (fem. singular agreement)' },
+  { type: 'translate', question: 'Translate to Spanish: "I don\'t want to eat."', answer: ['no quiero comer'], explanation: 'no quiero comer (negation goes before the verb)' },
+  { type: 'translate', question: 'Translate to Spanish: "Do you speak Spanish?"', answer: ['¿Hablas español?', '¿hablas espanol?', 'Hablas español', 'hablas espanol'], explanation: '¿Hablas español? (question structure)' },
+  { type: 'translate', question: 'Translate to Spanish: "I go to school."', answer: ['voy a la escuela', 'Voy a la escuela'], explanation: 'voy a la escuela ("a" indicates destination)' },
+  { type: 'translate', question: 'Translate to Spanish: "Hello, how are you?"', answer: ['Hola ¿cómo estás?', 'Hola, ¿cómo estás?', 'hola como estas', 'Hola, como estas?'], explanation: 'Hola, ¿cómo estás? (standard greeting)' },
+  { type: 'translate', question: 'Translate to Spanish: "I am fine, thank you."', answer: ['Estoy bien, gracias', 'estoy bien gracias', 'Estoy bien gracias.'], explanation: 'Estoy bien, gracias.' },
+  { type: 'translate', question: 'Translate to Spanish: "See you later."', answer: ['Hasta luego', 'hasta luego'], explanation: 'Hasta luego (see you later / hanggang mamaya)' },
+  { type: 'translate', question: 'Translate to Spanish: "Good morning."', answer: ['Buenos días', 'buenos dias', 'Buenos dias'], explanation: 'Buenos días.' },
+  { type: 'translate', question: 'Translate to Spanish: "one million books"', answer: ['un millón de libros', 'un millon de libros', 'un millon de libros.'], explanation: 'un millón de libros (millón requires the preposition "de")' },
+  { type: 'translate', question: 'Translate to Spanish: "the first book"', answer: ['el primer libro', 'el primer libro.'], explanation: 'el primer libro (primero drops the final -o before masc. singular nouns)' },
+  { type: 'translate', question: 'Translate to Spanish: "January 1"', answer: ['el primero de enero', 'primero de enero'], explanation: 'el primero de enero' },
+  { type: 'translate', question: 'Translate to Spanish: "the blue car"', answer: ['el coche azul', 'el coche azul.'], explanation: 'el coche azul (adjectives follow the noun)' },
+  { type: 'translate', question: 'Translate to Spanish: "yellow flowers"', answer: ['flores amarillas', 'flores amarillas.'], explanation: 'flores amarillas (feminine plural agreement)' },
+  { type: 'translate', question: 'Translate to Spanish: "the brown dog"', answer: ['el perro marrón', 'el perro marron', 'el perro marron.'], explanation: 'el perro marrón' },
+  { type: 'translate', question: 'Translate to Spanish: "I wash my hands."', answer: ['me lavo las manos', 'Me lavo las manos'], explanation: 'me lavo las manos (reflexive verb with definite article)' },
+  { type: 'translate', question: 'Translate to Spanish: "My head hurts."', answer: ['me duele la cabeza', 'Me duele la cabeza'], explanation: 'me duele la cabeza (singular body part pain)' },
+  { type: 'translate', question: 'Translate to Spanish: "My feet hurt."', answer: ['me duelen los pies', 'Me duelen los pies'], explanation: 'me duelen los pies (plural body parts pain)' }
 ]
+

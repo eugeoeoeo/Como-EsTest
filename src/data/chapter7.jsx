@@ -86,11 +86,30 @@ const quiz = [
   { type:'tf', question:'"el codo" is the ankle.', answer:false, explanation:'el codo is the elbow. el tobillo is the ankle.' },
 ]
 
+const communicate = [
+  { type: 'translate', question: 'Translate to Spanish: "My head hurts."', answer: ['Me duele la cabeza', 'me duele la cabeza'], explanation: 'Me duele la cabeza' },
+  { type: 'translate', question: 'Translate to Spanish: "My feet hurt."', answer: ['Me duelen los pies', 'me duelen los pies'], explanation: 'Me duelen los pies' },
+  { type: 'translate', question: 'Translate to Spanish: "I wash my hands."', answer: ['Me lavo las manos', 'me lavo las manos'], explanation: 'Me lavo las manos (reflexive verb)' },
+  { type: 'translate', question: 'Translate to Spanish: "She washes her face."', answer: ['Ella se lava la cara', 'ella se lava la cara', 'Se lava la cara', 'se lava la cara'], explanation: 'Ella se lava la cara' },
+  { type: 'translate', question: 'Translate to Spanish: "My stomach hurts."', answer: ['Me duele el estómago', 'me duele el estomago', 'Me duele el estomago', 'me duele el estómago'], explanation: 'Me duele el estómago' },
+  { type: 'translate', question: 'Translate to Spanish: "His leg hurts."', answer: ['Le duele la pierna', 'le duele la pierna'], explanation: 'Le duele la pierna' },
+  { type: 'translate', question: 'Translate to Spanish: "My eyes are tired."', answer: ['Mis ojos están cansados', 'mis ojos estan cansados', 'Mis ojos estan cansados'], explanation: 'Mis ojos están cansados' },
+  { type: 'translate', question: 'Translate to Spanish: "He washes his hair."', answer: ['Él se lava el pelo', 'el se lava el pelo', 'Él se lava el cabello', 'el se lava el cabello', 'Se lava el pelo'], explanation: 'Él se lava el pelo / Él se lava el cabello' },
+  { type: 'translate', question: 'Translate to Spanish: "Do your ears hurt?"', answer: ['¿Te duelen las orejas?', 'te duelen las orejas', '¿te duelen las orejas?', '¿Te duelen los oídos?', 'te duelen los oidos'], explanation: '¿Te duelen las orejas? / ¿Te duelen los oídos?' },
+  { type: 'translate', question: 'Translate to Spanish: "Open your mouth, please."', answer: ['Abre la boca, por favor', 'abre la boca por favor', 'Abre tu boca por favor'], explanation: 'Abre la boca, por favor' },
+  { type: 'translate', question: 'Translate to Spanish: "I have two hands."', answer: ['Tengo dos manos', 'tengo dos manos'], explanation: 'Tengo dos manos (mano is feminine but ends in -o)' },
+  { type: 'translate', question: 'Translate to Spanish: "My neck hurts."', answer: ['Me duele el cuello', 'me duele el cuello'], explanation: 'Me duele el cuello' },
+  { type: 'translate', question: 'Translate to Spanish: "We wash our hands before eating."', answer: ['Nos lavamos las manos antes de comer', 'nos lavamos las manos antes de comer'], explanation: 'Nos lavamos las manos antes de comer' },
+  { type: 'translate', question: 'Translate to Spanish: "Mis arms are strong."', answer: ['Mis brazos son fuertes', 'mis brazos son fuertes'], explanation: 'Mis brazos son fuertes' },
+  { type: 'translate', question: 'Translate to Spanish: "The child has brown eyes."', answer: ['El niño tiene ojos marrones', 'el nino tiene ojos marrones', 'El niño tiene los ojos marrones', 'el nino tiene los ojos marrones'], explanation: 'El niño tiene ojos marrones' }
+]
+
 export const ch7 = {
   icon: '🦴',
   title: 'El Cuerpo Humano',
   description: 'The Human Body — Vocabulary, Plural Forms, and Idiomatic Pain Expressions',
   lesson: <Lesson7 />,
   activities,
+  communicate,
   quiz,
 }
